@@ -2,28 +2,24 @@
 var React = require('react');
 var _ = require('lodash');
 
+var SinglePhotoView = require('./single-photo-view');
+
 var DragDrop = React.createClass({
-  getInitialState: function () {
-    return {
-      x: 0, y: 0
-    };
-  },
   handleFileSelect: function (evt) {
+    var x = evt.clientX, y = evt.clientY;
     evt.stopPropagation();
     evt.preventDefault();
     var files = evt.dataTransfer.files; // FileList object.
     _.each(files, function (file) {
       var reader = new FileReader();
       reader.onload = function(e) {
-        console.log('File Loaded');
-        console.log(e.target.result.substring(0, 30));
-        this.props.socket.emit('newPhoto', {
+        this.props.socket.emit('Photo:insert', {
           'fileName': file.name,
           'file': e.target.result,
           'author': this.props.userId,
-          'x': this.state.x,
-          'y': this.state.y
-        })
+          'x': x,
+          'y': y
+        });
       }.bind(this);
       reader.readAsDataURL(file);
     }.bind(this));
@@ -34,16 +30,12 @@ var DragDrop = React.createClass({
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
   },
   render: function () {
-
-    window.onmousemove = function (evt) {
-      this.setState({
-        x: evt.clientX, y: evt.clientY
-      });
-    }.bind(this);
-
     return (
-      <div className='drop-box' onDragOver={ this.handleDragOver } onDrop={ this.handleFileSelect }>
-        Drop files here
+      <div className='drop-box photo-view' onDragOver={ this.handleDragOver } onDrop={ this.handleFileSelect }>
+        <div className='title'>Drop files here</div>
+        { _.map(this.props.photos, function(photo, i) {
+          return <SinglePhotoView photo={photo} socket={this.props.socket} />
+        }, this) }
       </div>
     );
   }

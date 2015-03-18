@@ -7,16 +7,24 @@
   height: 100%;
   display: block;
   border: solid 5px #eee;
-  opacity: 0.5;
   position: absolute;
-  top: 100;
+  top: 0;
   left: 0;
   z-index: 1;
-}
-
-
-.drop-box:hover {
-  background: #f7f7f7;
+  .title {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    height: 10px;
+    width: 200px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
 }
 
 .photo-view {
@@ -25,5 +33,65 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: red;
+  .single-photo-view {
+    background: red;
+    position: absolute;
+
+    cursor: move;
+
+    .buttons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      .button {
+        padding: 5px;
+        cursor: pointer;
+        &:hover {
+          background: white;
+        }
+      }
+    }
+
+    img {
+      border: solid 1px #f7f7f7;
+    }
+
+    .photo {
+      max-width: 400px;
+      max-height: 400px;
+      width: auto;
+      height: auto;
+    }
+  }
+}
+
+
+
+.error-view {
+  position: absolute;
+  width: 300px;
+  height: auto;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  .message {
+    background: #f7f7f7;
+    color: #999;
+    border: solid 1px #999;
+    padding: 10px;
+    margin-bottom: 2px;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .success {
+    background: #83E283;
+    color: #070;
+    border: solid 1px #070;
+  }
+  .error {
+    background: #E47D7D;
+    color: #700;
+    border: solid 1px #700;
+  }
 }

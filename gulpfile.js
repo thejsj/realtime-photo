@@ -48,9 +48,9 @@ gulp.task('sass', function () {
   gulp.src([
       'client/src/scss/main.scss'
     ])
-    // .pipe(sass({
-    //   errLogToConsole: true
-    // }))
+    .pipe(sass({
+      errLogToConsole: true
+    }))
     .pipe(concat('main.css'))
     .pipe(gulp.dest('./client/dist/'));
 });
