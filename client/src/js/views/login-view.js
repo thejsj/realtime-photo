@@ -5,7 +5,7 @@ var React = require('react');
 
 var LoginView = React.createClass({
   render: function () {
-    console.log('Not Logged In');
+    // console.log('Not Logged In');
     if(this.props.thisUser) return (null);
     return (
       <div className='container'>

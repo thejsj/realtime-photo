@@ -22,18 +22,14 @@ var state = {
 state.socket.emit('connctedUser');
 
 state.socket.on('userUpdate', function (users) {
-  console.log('userUpdate', users);
 });
 
 state.socket.on('connctedUserConfirmation', function (userId) {
-  console.log('connectedUserConfirmation', userId);
   state.userId = userId;
   render(state);
 });
 
 state.socket.on('newPhoto', function (photo) {
   state.photos[photo.id] = photo;
-  console.log('newPhoto');
-  console.log(photo);
   render(state);
 });

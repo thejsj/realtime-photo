@@ -27,8 +27,12 @@ var socketHandler = function (io, socket) {
    });
 
   socket.on('newPhoto', function (photo) {
-    console.log('newPhoto');
-    photo.file = r.binary(new Buffer(photo.file, 'base64'));
+    console.log('Adding newPhoto');
+    var matches = photo.file.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    console.
+    photo.type = matches[1];
+    photo.file = r.binary(new Buffer(mathces[2], 'base64'));
+    console.log(matches[2].substring(0, 30));
     r.table('photos')
      .insert(photo)
      .run(r.conn);
@@ -41,6 +45,10 @@ var socketHandler = function (io, socket) {
       .run(conn)
       .then(function (cursor) {
         cursor.each(function (err, result) {
+          var file = result.new_val.file.toString('base64');
+          console.log('Sending New File');
+          console.log(file.substring(0, 30));
+          result.new_val.file = file;
           io.emit('newPhoto', result.new_val);
         });
       });

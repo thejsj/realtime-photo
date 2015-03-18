@@ -16,6 +16,7 @@ var DragDrop = React.createClass({
       var reader = new FileReader();
       reader.onload = function(e) {
         console.log('File Loaded');
+        console.log(e.target.result.substring(0, 30));
         this.props.socket.emit('newPhoto', {
           'fileName': file.name,
           'file': e.target.result,
@@ -39,8 +40,6 @@ var DragDrop = React.createClass({
         x: evt.clientX, y: evt.clientY
       });
     }.bind(this);
-
-    console.log('RENDER');
 
     return (
       <div className='drop-box' onDragOver={ this.handleDragOver } onDrop={ this.handleFileSelect }>
