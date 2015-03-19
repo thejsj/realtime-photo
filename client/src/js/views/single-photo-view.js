@@ -5,9 +5,11 @@ var _ = require('lodash');
 var SinglePhotoView = React.createClass({
   getInitialState: function () {
     return {
-      xOffset: null,
-      yOffset: null
-    }
+      xOffset: 0,
+      yOffset: 0,
+      x: 0,
+      y: 0,
+    };
   },
   delete: function (evt) {
     this.props.socket.emit('Photo:delete', this.props.photo.id);
@@ -17,29 +19,19 @@ var SinglePhotoView = React.createClass({
   },
   startDrag: function (evt) {
     var offset = this.getDOMNode().getBoundingClientRect();
-    console.log(evt.clientX - offset.left);
-    console.log(evt.clietnY - offset.top);
     this.setState({
       xOffset: evt.clientX - offset.left,
       yOffset: evt.clientY - offset.top
-    });
-    console.log(this.state);
-  },
-  drag: function (evt) {
-    this.props.socket.emit('Photo:update', {
-      id: this.props.photo.id,
-      x: evt.clientX + this.state.xOffset,
-      y: evt.clientY + this.state.yOffset
     });
   },
   endDrag: function (evt) {
     this.props.socket.emit('Photo:update', {
       id: this.props.photo.id,
-      x: evt.clientX + this.state.xOffset,
-      y: evt.clientY + this.state.yOffset
+      x: evt.clientX - this.state.xOffset,
+      y: evt.clientY - this.state.yOffset
     });
     this.setState({
-      xOffset: null, yOffset: null
+      xOffset: 0, yOffset: 0
     });
   },
   render: function () {
@@ -51,7 +43,6 @@ var SinglePhotoView = React.createClass({
     return (
       <div className='single-photo-view' style={ style }
         onDragEnter={this.startDrag}
-        onDrag={this.drag}
         onDragEnd={this.endDrag}
       >
         <div className='buttons'>
