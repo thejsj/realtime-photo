@@ -32,7 +32,8 @@ state.socket.on('User:connect', function (userId) {
 });
 
 state.socket.on('Photo:update', function (photo) {
-  _.extend(state.photos[photo.id], photo);
+  if (!state.photos[photo.id]) state.photos[photo.id] = {};
+  state.photos[photo.id] = _.extend(state.photos[photo.id], photo);
   render(state);
 });
 

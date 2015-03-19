@@ -62,6 +62,17 @@ var socketHandler = function (io, socket) {
     }
   });
 
+  socket.on('Photo:update', function (photo) {
+    console.log('update', photo);
+    if (photo.id) {
+      r
+        .table('photos')
+        .get(photo.id)
+        .update(photo)
+        .run(r.conn);
+    }
+  });
+
   socket.on('Photo:delete', function (id) {
     r
       .table('photos')
@@ -80,9 +91,16 @@ var socketHandler = function (io, socket) {
           if (result.new_val === null) {
             io.emit('Photo:delete', result.old_val.id);
           } else {
-            var file = result.new_val.file.toString('base64');
-            result.new_val.file = file;
-            io.emit('Photo:update', result.new_val);
+            // Send the metadata first, and then the base64 encoded image
+            var main = result.new_val;
+            var copy = _.clone(result.new_val);
+            delete copy.file;
+            var image_copy = {
+              id: main.id,
+              file: main.file.toString('base64')
+            };
+            io.emit('Photo:update', copy);
+            io.emit('Photo:update', image_copy);
           }
         });
       });
