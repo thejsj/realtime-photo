@@ -1,17 +1,18 @@
 rethinkdb:
   image: dockerfile/rethinkdb
   ports:
-   - "10002:28015"
-   - "10003:29015"
+   - "10201:8080"
+   - "10203:28015"
+   - "10203:29015"
 server:
   build: .
   ports:
-   - "80:80"
+   - "10200:10200"
   links:
    - "rethinkdb"
   environment:
     NODE_ENV: production
-    PORT: 80
+    PORT: 10200
   volumes:
     - ./:/app
   command: 'npm start'
