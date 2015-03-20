@@ -1,7 +1,6 @@
 rethinkdb:
   image: dockerfile/rethinkdb
   ports:
-   - "10001:8080"
    - "10002:28015"
    - "10003:29015"
 server:
@@ -11,7 +10,7 @@ server:
   links:
    - "rethinkdb"
   environment:
-    NODE_ENV: docker-local
+    NODE_ENV: production
     PORT: 80
   volumes:
     - ./:/app

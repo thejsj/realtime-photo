@@ -30,7 +30,7 @@ app.route('/config.js')
   .get(clientConfigParser);
 
 var server = http.createServer(app.callback());
-server.listen(8000);
+server.listen(config.get('ports').http);
 var io = require('socket.io')(server);
 
 io.on('connection', socketHandler.bind(null, io));
