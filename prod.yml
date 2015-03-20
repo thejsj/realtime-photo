@@ -2,7 +2,7 @@ rethinkdb:
   image: dockerfile/rethinkdb
   ports:
    - "10201:8080"
-   - "10203:28015"
+   - "10202:28015"
    - "10203:29015"
 server:
   build: .
