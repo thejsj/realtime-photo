@@ -15,17 +15,9 @@ var socketHandler = require('./socket-handler');
 var fileDownloader = require('./api/file-downloader');
 var clientConfigParser = require('./client-config-parser');
 
-app
-  .use(function *(next) {
-    console.log(' -- request -- ');
-    yield next;
-  });
-
 // Middleware
 app
   .use(routing(app))
-  // .use(auth.initialize())
-  // .use(auth.session());
 
 app
   .use(serve(__dirname + '/../client'))
