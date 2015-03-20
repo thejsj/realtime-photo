@@ -3,7 +3,10 @@ node_modules
 .DS_Store
 client/lib
 client/dist
+
 config
 !config/default.js
+
 fabfile.py
 *.pyc
+*.log
