@@ -7,12 +7,12 @@ rethinkdb:
 server:
   build: .
   ports:
-   - "10200:10200"
+   - "10200:80"
   links:
    - "rethinkdb"
   environment:
     NODE_ENV: production
-    PORT: 10200
+    PORT: 80
   volumes:
     - ./:/app
   command: 'npm start'
