@@ -14,7 +14,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.2",
-    "bootstrap-social": "~4.8.0"
+    "bootstrap": "~3.3.4",
+    "bootstrap-social": "~4.8.0",
+    "jquery": "~2.1.3"
   }
 }

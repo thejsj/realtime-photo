@@ -40,6 +40,13 @@ var SinglePhotoView = React.createClass({
       top: photo.y + 'px',
       left: photo.x + 'px'
     };
+    var image = null;
+    if (photo.file !== undefined) {
+      image = <img
+        className='photo'
+        src={'data:' + photo.type  + ';base64,' + photo.file }
+      />
+    }
     return (
       <div className='single-photo-view' style={ style }
         onDragEnter={this.startDrag}
@@ -57,10 +64,7 @@ var SinglePhotoView = React.createClass({
             onClick={this.download}>
           </span>
         </div>
-        <img
-          className='photo'
-          src={'data:' + photo.type  + ';base64,' + photo.file }
-        />
+        { image }
       </div>
     );
   }

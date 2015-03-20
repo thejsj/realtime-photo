@@ -6,8 +6,9 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var reactify = require('reactify');
+var shell = require('gulp-shell');
 
-var sass = require('gulp-sass');
+var sass = require('node-sass');
 var concat = require('gulp-concat');
 
 gulp.task('watchify', function(){
@@ -44,20 +45,18 @@ gulp.task('browserify', function(){
     .pipe(gulp.dest('./client/dist/'));
 });
 
+
 gulp.task('sass', function () {
-  gulp.src([
-      'client/src/scss/main.scss'
-    ])
-    .pipe(sass({
-      errLogToConsole: true
-    }))
-    .pipe(concat('main.css'))
-    .pipe(gulp.dest('./client/dist/'));
+  sass.renderSync({
+    file: './client/src/scss/main.scss',
+    outFile: './client/dist/css/main.css'
+  });
 });
 
-gulp.task('watch', ['browserify', 'sass'], function () {
+gulp.task('watch', ['browserify'], function () {
   gulp.watch('./client/src/scss/**/*.scss', ['sass']);
   gulp.watch('./client/src/js/**/*.js', ['watchify']);
 });
 
 gulp.task('default', ['browserify', 'sass']);
+gulp.task('build', ['browserify', 'sass']);

@@ -32,7 +32,7 @@ var DragDrop = React.createClass({
   render: function () {
     return (
       <div className='drop-box photo-view' onDragOver={ this.handleDragOver } onDrop={ this.handleFileSelect }>
-        <div className='title'>Drop files here</div>
+        <div className='title'>Drop images here</div>
         { _.map(this.props.photos, function(photo, i) {
           return <SinglePhotoView photo={photo} socket={this.props.socket} />
         }, this) }
