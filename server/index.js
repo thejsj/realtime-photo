@@ -3,10 +3,11 @@
 
 
 var http = require('http');
-var serve = require('koa-static');
-var routing = require('koa-routing');
+var express = require('express');
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
-var app = require('koa')();
 var config = require('config');
 console.log(config);
 
@@ -18,21 +19,10 @@ var clientConfigParser = require('./client-config-parser');
 
 // Middleware
 app
-  .use(routing(app))
-
-app
-  .use(serve(__dirname + '/../client'))
-
-
-app.route('/photo/download/:id')
-  .get(fileDownloader);
-
-app.route('/config.js')
-  .get(clientConfigParser);
-
-var server = http.createServer(app.callback());
-server.listen(config.get('ports').http);
-var io = require('socket.io')(server);
+  .use('/config.js', clientConfigParser)
+  .get('/photo/download/:id', fileDownloader)
+  .use(express.static(__dirname + '/../client'));
 
 io.on('connection', socketHandler.bind(null, io));
+server.listen(config.get('ports').http);
 console.log('Hello!');
