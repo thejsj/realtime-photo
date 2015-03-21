@@ -41,10 +41,10 @@ var SinglePhotoView = React.createClass({
       left: photo.x + 'px'
     };
     var image = null;
-    if (photo.file !== undefined) {
+    if (photo._fileBase64 !== undefined) {
       image = <img
         className='photo'
-        src={'data:' + photo.type  + ';base64,' + photo.file }
+        src={'data:' + photo.type  + ';base64,' + photo._fileBase64 }
       />
     }
     return (

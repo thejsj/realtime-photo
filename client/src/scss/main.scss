@@ -36,7 +36,9 @@
   .single-photo-view {
     background: red;
     position: absolute;
-
+    min-height: 100px;
+    min-width: 100px;
+    background: #777;
     cursor: move;
 
     .buttons {

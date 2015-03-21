@@ -20,6 +20,7 @@ var state = {
   photos: {},
   messages: []
 };
+window.state = state;
 
 state.socket.emit('User:connect');
 
@@ -34,14 +35,29 @@ state.socket.on('User:connect', function (userId) {
 state.socket.on('Photo:update', function (photo) {
   if (!state.photos[photo.id]) state.photos[photo.id] = {};
   state.photos[photo.id] = _.extend(state.photos[photo.id], photo);
+  if (state.photos[photo.id]._fileBase64 === undefined && photo.file !== undefined) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var base64 = e.target.result.match(/^data:([A-Za-z-+\/]*);base64,(.+)$/);
+      state.photos[photo.id]._fileBase64 = base64[2];
+      render(state);
+    }.bind(this);
+    reader.readAsDataURL(new Blob([photo.file]));
+  };
   render(state);
 });
 
 state.socket.on('Photo:get', function (photos) {
   photos.forEach(function (photo){
     state.photos[photo.id] = photo;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var base64 = e.target.result.match(/^data:([A-Za-z-+\/]*);base64,(.+)$/);
+      state.photos[photo.id]._fileBase64 = base64[2];
+      render(state);
+    }.bind(this);
+    reader.readAsDataURL(new Blob([photo.file]));
   });
-  render(state);
 });
 
 state.socket.on('Photo:delete', function (id) {

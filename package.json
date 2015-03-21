@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "./node_modules/nodemon/bin/nodemon.js --watch ./server server",
-    "start": "node --harmony ./server/",
+    "start": "iojs ./server/",
     "build": "./node_modules/gulp/bin/gulp.js",
     "watch": "./node_modules/gulp/bin/gulp.js watch"
   },

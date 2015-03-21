@@ -1,12 +1,13 @@
 /*jshint node:true */
 'use strict';
 
-var config = require('config');
+
 var http = require('http');
 var serve = require('koa-static');
 var routing = require('koa-routing');
 
 var app = require('koa')();
+var config = require('config');
 console.log(config);
 
 // var auth = require('./auth');
