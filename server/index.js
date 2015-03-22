@@ -24,4 +24,4 @@ app
 
 io.on('connection', socketHandler.bind(null, io));
 server.listen(config.get('ports').http);
-console.log('Hello!');
+console.log('---- Hello!');
