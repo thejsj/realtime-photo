@@ -21,7 +21,6 @@ WORKDIR /app
 RUN npm run build
 
 WORKDIR /
-ADD config /app/config
 ADD server /app/server
 
 # Define default command.
