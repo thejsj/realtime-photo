@@ -10,6 +10,8 @@ var shell = require('gulp-shell');
 
 var sass = require('node-sass');
 var concat = require('gulp-concat');
+var fs = require('fs');
+var path = require('path');
 
 gulp.task('watchify', function(){
   var bundler = browserify({
@@ -47,9 +49,16 @@ gulp.task('browserify', function(){
 
 
 gulp.task('sass', function () {
-  sass.renderSync({
+  sass.render({
     file: './client/src/scss/main.scss',
-    outFile: './client/dist/css/main.css'
+  }, function (err, result) {
+    if (err) {
+      console.log(err);
+    }
+    fs.writeFileSync(
+      path.join(__dirname, '/client/dist/main.css'),
+      result.css.toString()
+    );
   });
 });
 

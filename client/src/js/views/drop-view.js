@@ -6,9 +6,9 @@ var SinglePhotoView = require('./single-photo-view');
 
 var DragDrop = React.createClass({
   handleFileSelect: function (evt) {
-    var x = evt.clientX, y = evt.clientY;
     evt.stopPropagation();
     evt.preventDefault();
+    var x = evt.clientX, y = evt.clientY;
     var files = evt.dataTransfer.files; // FileList object.
     _.each(files, function (file) {
       var reader = new FileReader();
@@ -39,7 +39,7 @@ var DragDrop = React.createClass({
   render: function () {
     return (
       <div className='drop-box photo-view' onDragOver={ this.handleDragOver } onDrop={ this.handleFileSelect }>
-        <div className='title'>Drop images here</div>
+        <div className='title'>Drag and drop</div>
         { _.map(this.props.photos, function(photo, i) {
           return <SinglePhotoView key={photo.id} photo={photo} socket={this.props.socket} />
         }, this) }

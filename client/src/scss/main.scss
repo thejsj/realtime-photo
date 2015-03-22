@@ -34,13 +34,12 @@
   width: 100%;
   height: 100%;
   .single-photo-view {
-    background: red;
     position: absolute;
-    min-height: 100px;
-    min-width: 100px;
-    background: #777;
+    min-height: 200px;
+    min-width: 200px;
+    background: white;
     cursor: move;
-
+    border: solid 1px #eee;
     .buttons {
       position: absolute;
       top: 0;
@@ -51,17 +50,6 @@
         &:hover {
           background: white;
         }
-      }
-    }
-
-    .imgage-container {
-      border: solid 1px #eee;
-      background: #f7f7f7;
-      min-height: 200px;
-      min-width: 200px;
-      img {
-        max-width: 100%;
-        max-height: 100%;
       }
     }
 
@@ -102,5 +90,19 @@
     background: #E47D7D;
     color: #700;
     border: solid 1px #700;
+  }
+}
+.super-button {
+  position: fixed;
+  right: 0;
+  height: 35px;
+  width: 200px;
+  z-index: 50;
+  border-radius: 0;
+  &.see-on-github {
+    bottom: 0;
+  }
+  &.install-button {
+    bottom: 35px;
   }
 }

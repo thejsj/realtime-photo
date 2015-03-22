@@ -31,9 +31,12 @@
   width: 100%;
   height: 100%; }
   .photo-view .single-photo-view {
-    background: red;
     position: absolute;
-    cursor: move; }
+    min-height: 200px;
+    min-width: 200px;
+    background: white;
+    cursor: move;
+    border: solid 1px #eee; }
     .photo-view .single-photo-view .buttons {
       position: absolute;
       top: 0;
@@ -43,14 +46,6 @@
         cursor: pointer; }
         .photo-view .single-photo-view .buttons .button:hover {
           background: white; }
-    .photo-view .single-photo-view .imgage-container {
-      border: solid 1px #eee;
-      background: #f7f7f7;
-      min-height: 200px;
-      min-width: 200px; }
-      .photo-view .single-photo-view .imgage-container img {
-        max-width: 100%;
-        max-height: 100%; }
     .photo-view .single-photo-view .photo {
       max-width: 400px;
       max-height: 400px;
@@ -80,3 +75,15 @@
     background: #E47D7D;
     color: #700;
     border: solid 1px #700; }
+
+.super-button {
+  position: fixed;
+  right: 0;
+  height: 35px;
+  width: 200px;
+  z-index: 50;
+  border-radius: 0; }
+  .super-button.see-on-github {
+    bottom: 0; }
+  .super-button.install-button {
+    bottom: 35px; }
