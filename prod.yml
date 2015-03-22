@@ -16,6 +16,4 @@ server:
   environment:
     NODE_ENV: production
     PORT: 80
-  volumes:
-    - ./:/app
-  command: 'npm start'
+  command: npm start 

@@ -16,4 +16,4 @@ server:
     PORT: 80
   volumes:
     - ./:/app
-  command: npm start
+  command: npm start 
