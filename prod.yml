@@ -11,6 +11,8 @@ server:
    - "10204:10204"
   links:
    - "rethinkdb"
+  volumes:
+   -'./config/:/app/config'
   environment:
     NODE_ENV: production
     PORT: 80
