@@ -3,6 +3,7 @@ node_modules
 .DS_Store
 client/lib
 client/dist
+client/dist/main.css
 
 config
 !config/default.js

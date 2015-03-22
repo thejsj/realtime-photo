@@ -8,10 +8,10 @@ server:
   build: .
   ports:
    - "10200:80"
-   - "10204:10204"
   links:
    - "rethinkdb"
   environment:
     NODE_ENV: production
+    DEBUG: '*'
     PORT: 80
   command: npm start
