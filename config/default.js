@@ -16,7 +16,6 @@ var config = {
   },
   'ports': {
     'http': 8000,
-    'socket': 8001
   },
   'url': 'localhost',
 };

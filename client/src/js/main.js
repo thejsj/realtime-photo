@@ -16,7 +16,7 @@ var render = function (state) {
 };
 
 var state = {
-  socket: io.connect('http://' + window.config.url + ':' + window.config.ports.socket),
+  socket: io.connect('http://' + window.config.url + ':' + window.config.ports.http),
   photos: {},
   messages: []
 };

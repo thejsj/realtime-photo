@@ -8,7 +8,7 @@ var app = express();
 var config = require('config');
 console.log(config);
 var server = require('http').Server(app);
-var io = require('socket.io')(config.get('ports').socket);
+var io = require('socket.io')(server);
 
 // var auth = require('./auth');
 // var authRouter = require('./auth/authRouter');
