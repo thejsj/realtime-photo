@@ -5,11 +5,10 @@
 var http = require('http');
 var express = require('express');
 var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
 var config = require('config');
 console.log(config);
+var server = require('http').Server(app);
+var io = require('socket.io')(config.get('ports').socket);
 
 // var auth = require('./auth');
 // var authRouter = require('./auth/authRouter');

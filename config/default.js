@@ -15,7 +15,8 @@ var config = {
     'db': 'realtime_photo_sharing'
   },
   'ports': {
-    'http': 8000
+    'http': 8000,
+    'socket': 8001
   },
   'url': 'localhost',
 };
