@@ -23,7 +23,6 @@ RUN npm run build
 WORKDIR /
 ADD config /app/config
 ADD server /app/server
-ADD run.sh /app/run.sh
 
 # Define default command.
 WORKDIR /app
