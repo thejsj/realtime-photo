@@ -12,6 +12,5 @@ server:
    - "rethinkdb"
   environment:
     NODE_ENV: production
-    DEBUG: '*'
     PORT: 80
   command: npm start
