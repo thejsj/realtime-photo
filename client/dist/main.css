@@ -34,6 +34,7 @@
     position: absolute;
     background: white;
     cursor: move;
+    z-index: 10;
     border: solid 1px #eee; }
     .photo-view .single-photo-view .buttons {
       position: absolute;
