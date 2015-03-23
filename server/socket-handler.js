@@ -44,31 +44,47 @@ var socketHandler = function (io, socket) {
    });
 
   socket.on('Photo:insert', function (photo) {
-    if (!photo.file) {
-     socket.emit('Message:update', {
-      type: 'error',
-      message: 'There is not file!',
-      time: Date.now()
-     });
-     return;
-    }
-    console.log(photo.file.length);
-    if (photo.file.length > 800000) {
-      console.log('Image is too big!')
-      socket.emit('Message:update', {
-        type: 'error',
-        message: 'Photo must be under 800kb',
-        time: Date.now()
-      });
-      return;
-    }
-    var file = r.binary(photo.file);
-    delete photo.file;
     socket.emit('Message:update', {
       type: '',
       message: 'Uploading Image',
       time: Date.now()
     });
+    // Check if photo exists
+    r
+      .table('photos').get(photo.id).run(r.conn)
+      .then(function (res) {
+        if (res !== null) return res;
+        return r.table('photos')
+          .insert({ id: photo.id  }).run(r.conn)
+          .then(function {
+            return r.table('photos').get(photo.id).run(r.conn);
+          });
+      })
+      .then(function (photo) {
+        if (photo.file && photo.file.length > 8000) {
+          throw new Error('File is too big');
+        }
+        var id = photo.id;
+        delete photo.id;
+        return r
+          .table('photos')
+          .get(id)
+          .update(photo)
+          .run(r.conn);
+      })
+      .catch(function () {
+        socket.emit('Message:update', {
+          type: 'error',
+          message: 'Photo must be under 800kb',
+          time: Date.now()
+        })
+      });
+
+
+
+    var file = r.binary(photo.file);
+    delete photo.file;
+
     r.table('photos')
      .insert(photo)
      .run(r.conn)
