@@ -62,16 +62,26 @@ var socketHandler = function (io, socket) {
       });
       return;
     }
-    photo.file = r.binary(photo.file);
+    var file = r.binary(photo.file);
+    delete photo.file;
     r.table('photos')
      .insert(photo)
      .run(r.conn)
-     .then(function () {
-       socket.emit('Message:update', {
-        type: 'success',
-        message: 'Image Uploaded',
-        time: Date.now()
-       });
+     .then(function (result) {
+       console.log(result.generated_keys[0]);
+       r.table('photos')
+        .get(result.generated_keys[0])
+        .update({
+          file: file
+        })
+        .run(r.conn)
+        .then(function () {
+          socket.emit('Message:update', {
+            type: 'success',
+            message: 'Image Uploaded',
+            time: Date.now()
+          });
+        });
      });
   });
 

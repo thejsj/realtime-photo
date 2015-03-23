@@ -38,7 +38,8 @@
     .photo-view .single-photo-view .buttons {
       position: absolute;
       top: 0;
-      left: 0; }
+      left: 0;
+      z-index: 1; }
       .photo-view .single-photo-view .buttons .button {
         padding: 5px;
         cursor: pointer; }
