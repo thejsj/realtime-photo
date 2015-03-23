@@ -16,6 +16,7 @@ var DragDrop = React.createClass({
         var base64 = e.target.result;
         var matches = base64.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
         if (Array.isArray(matches) && (matches[1] === 'image/png' || matches[1] === 'image/jpeg')) {
+          console.log('Photo:insert');
           this.props.socket.emit('Photo:insert', {
             'fileName': file.name,
             'file': file,

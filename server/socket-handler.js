@@ -64,6 +64,11 @@ var socketHandler = function (io, socket) {
     }
     var file = r.binary(photo.file);
     delete photo.file;
+    socket.emit('Message:update', {
+      type: '',
+      message: 'Uploading Image',
+      time: Date.now()
+    });
     r.table('photos')
      .insert(photo)
      .run(r.conn)
