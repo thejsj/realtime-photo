@@ -23,7 +23,16 @@ var socketHandler = function (io, socket) {
        return cursor.toArray();
      })
      .then(function (photos) {
-       socket.emit('Photo:get', photos);
+       photos.forEach(function (photo) {
+          var copy = _.clone(photo);
+          delete copy.file;
+          var image_copy = {
+            id: photo.id,
+            file: photo.file
+          };
+          socket.emit('Photo:update', copy);
+          socket.emit('Photo:update', image_copy);
+       });
      });
 
   });
@@ -35,20 +44,30 @@ var socketHandler = function (io, socket) {
    });
 
   socket.on('Photo:insert', function (photo) {
-    if (photo.file) {
-      photo.file = r.binary(photo.file);
-      r.table('photos')
-       .insert(photo)
-       .run(r.conn)
-       .then(function () {
-         socket.emit('Message:update', {
-          type: 'success',
-          message: 'Image Uploaded'
-         });
-       });
-    } else {
-      console.log('Photo DOESN"T has file');
+    if (!photo.file) {
+     socket.emit('Message:update', {
+      type: 'error',
+      message: 'There is not file!'
+     });
+     return;
     }
+    if (photo.file.length > 800000) {
+     socket.emit('Message:update', {
+      type: 'error',
+      message: 'Image must be under 800kb'
+     });
+     return;
+    }
+    photo.file = r.binary(photo.file);
+    r.table('photos')
+     .insert(photo)
+     .run(r.conn)
+     .then(function () {
+       socket.emit('Message:update', {
+        type: 'success',
+        message: 'Image Uploaded'
+       });
+     });
   });
 
   socket.on('Photo:update', function (photo) {

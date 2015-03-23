@@ -46,6 +46,10 @@ var SinglePhotoView = React.createClass({
         className='photo'
         src={'data:' + photo.type  + ';base64,' + photo._fileBase64 }
       />
+    } else {
+      image = <div className='photo-loading'>
+          <img className='loading-gif' src='/src/svg/loading.svg' />
+      </div>;
     }
     return (
       <div className='single-photo-view' style={ style }

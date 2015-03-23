@@ -62,7 +62,7 @@ gulp.task('sass', function () {
   });
 });
 
-gulp.task('watch', ['browserify'], function () {
+gulp.task('watch', ['browserify', 'sass'], function () {
   gulp.watch('./client/src/scss/**/*.scss', ['sass']);
   gulp.watch('./client/src/js/**/*.js', ['watchify']);
 });

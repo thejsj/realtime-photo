@@ -48,18 +48,6 @@ var _ = require('lodash');
     render(state);
   });
 
-  state.socket.on('Photo:get', function (photos) {
-    photos.forEach(function (photo){
-      state.photos[photo.id] = photo;
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var base64 = e.target.result.match(/^data:([A-Za-z-+\/]*);base64,(.+)$/);
-        state.photos[photo.id]._fileBase64 = base64[2];
-        render(state);
-      }.bind(this);
-      reader.readAsDataURL(new Blob([photo.file]));
-    });
-  });
 
   state.socket.on('Photo:delete', function (id) {
     delete state.photos[id];

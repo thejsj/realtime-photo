@@ -28,4 +28,4 @@ app
 
 io.on('connection', socketHandler.bind(null, io));
 
-console.log('-- 10:00 -- Hello! --- ', new Date().toString());
+console.log(new Date().toString());

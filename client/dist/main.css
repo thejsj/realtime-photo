@@ -32,8 +32,6 @@
   height: 100%; }
   .photo-view .single-photo-view {
     position: absolute;
-    min-height: 200px;
-    min-width: 200px;
     background: white;
     cursor: move;
     border: solid 1px #eee; }
@@ -46,6 +44,19 @@
         cursor: pointer; }
         .photo-view .single-photo-view .buttons .button:hover {
           background: white; }
+    .photo-view .single-photo-view .photo-loading {
+      width: 200px;
+      height: 150px;
+      position: relative; }
+      .photo-view .single-photo-view .photo-loading .loading-gif {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto; }
     .photo-view .single-photo-view .photo {
       max-width: 400px;
       max-height: 400px;
