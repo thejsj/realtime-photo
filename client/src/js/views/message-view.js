@@ -8,7 +8,7 @@ var MessageView = React.createClass({
       <div className='error-view'>
       { _.map(this.props.messages, function(message, i) {
         return (
-          <div className={ message.type + ' message' }>
+          <div key={ message.time } className={ message.type + ' message' }>
             <p>{ message.message }</p>
           </div>
         );

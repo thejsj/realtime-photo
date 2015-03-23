@@ -47,18 +47,20 @@ var socketHandler = function (io, socket) {
     if (!photo.file) {
      socket.emit('Message:update', {
       type: 'error',
-      message: 'There is not file!'
+      message: 'There is not file!',
+      time: Date.now()
      });
      return;
     }
     console.log(photo.file.length);
     if (photo.file.length > 800000) {
       console.log('Image is too big!')
-     socket.emit('Message:update', {
-      type: 'error',
-      message: 'Photo must be under 800kb'
-     });
-     return;
+      socket.emit('Message:update', {
+        type: 'error',
+        message: 'Photo must be under 800kb',
+        time: Date.now()
+      });
+      return;
     }
     photo.file = r.binary(photo.file);
     r.table('photos')
@@ -67,7 +69,8 @@ var socketHandler = function (io, socket) {
      .then(function () {
        socket.emit('Message:update', {
         type: 'success',
-        message: 'Image Uploaded'
+        message: 'Image Uploaded',
+        time: Date.now()
        });
      });
   });
