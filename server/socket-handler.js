@@ -51,10 +51,12 @@ var socketHandler = function (io, socket) {
      });
      return;
     }
+    console.log(photo.file.length);
     if (photo.file.length > 800000) {
+      console.log('Image is too big!')
      socket.emit('Message:update', {
       type: 'error',
-      message: 'Image must be under 800kb'
+      message: 'Photo must be under 800kb'
      });
      return;
     }
