@@ -11,3 +11,4 @@ config
 fabfile.py
 *.pyc
 *.log
+*.mov

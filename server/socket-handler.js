@@ -42,57 +42,10 @@ var socketHandler = function (io, socket) {
       if (user.socketId === socket.id) delete connectedUsers[key];
     });
    });
-   
+
    socket.on('Message:mirror', function (message) {
      socket.emit('Message:update', message);
    })
-
-  // socket.on('Photo:insert', function (photo) {
-  //   if (!photo.file) {
-  //    socket.emit('Message:update', {
-  //     type: 'error',
-  //     message: 'There is not file!',
-  //     time: Date.now()
-  //    });
-  //    return;
-  //   }
-  //   console.log(photo.file.length);
-  //   if (photo.file.length > 800000) {
-  //     console.log('Image is too big!')
-  //     socket.emit('Message:update', {
-  //       type: 'error',
-  //       message: 'Photo must be under 800kb',
-  //       time: Date.now()
-  //     });
-  //     return;
-  //   }
-  //   var file = r.binary(photo.file);
-  //   delete photo.file;
-  //   socket.emit('Message:update', {
-  //     type: '',
-  //     message: 'Uploading Image',
-  //     time: Date.now()
-  //   });
-  //   r.table('photos')
-  //    .insert(photo)
-  //    .run(r.conn)
-  //    .then(function (result) {
-  //      console.log(result.generated_keys[0]);
-  //      r.table('photos')
-  //       .get(result.generated_keys[0])
-  //       .update({
-  //         file: file
-  //       })
-  //       .run(r.conn)
-  //       .then(function () {
-  //         socket.emit('Message:update', {
-  //           type: 'success',
-  //           message: 'Image Uploaded',
-  //           time: Date.now()
-  //         });
-  //       });
-  //    });
-  // });
 
   socket.on('Photo:update', function (photo) {
     if (photo.id) {
