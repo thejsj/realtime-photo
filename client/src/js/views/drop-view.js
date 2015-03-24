@@ -1,6 +1,7 @@
 'use strict';
 var React = require('react');
 var _ = require('lodash');
+var axios = require('axios');
 
 var SinglePhotoView = require('./single-photo-view');
 
@@ -16,14 +17,27 @@ var DragDrop = React.createClass({
         var base64 = e.target.result;
         var matches = base64.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
         if (Array.isArray(matches) && (matches[1] === 'image/png' || matches[1] === 'image/jpeg')) {
-          console.log('Photo:insert');
-          this.props.socket.emit('Photo:insert', {
+          var image = {
             'fileName': file.name,
-            'file': file,
             'type': matches[1],
             'author': this.props.userId,
             'x': x,
             'y': y
+          };
+          axios.post('/image', {
+            image : image
+          })
+          .then(function (response) {
+            var id = response.data.id;
+            var data = new FormData();
+            data.append('file', e.target.result);
+            var opts = {
+              transformRequest: function(data) { return data; }
+            };
+            return axios.put('image/' + id, data, opts);
+          })
+          .then(function () {
+            console.log('Image uploaded');
           });
         } else {
           console.log('Error', matches[1]);
