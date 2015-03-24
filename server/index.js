@@ -10,7 +10,6 @@ io.set('transports', ["websocket", "polling"]);
 
 var bodyParser = require('body-parser');
 
-console.log(config);
 var socketHandler = require('./socket-handler');
 var imageDownload = require('./api/image').download
 var imageCreate = require('./api/image').create;
@@ -39,5 +38,3 @@ app
   });
 
 io.on('connection', socketHandler.bind(null, io));
-
-console.log(new Date().toString());

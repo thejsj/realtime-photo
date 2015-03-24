@@ -4,6 +4,7 @@
 var _ = require('lodash');
 var r = require('../db');
 var multiparty = require('multiparty');
+var checkType = require('../check-type');
 
 var imageDownloader = function (req, res) {
   var id = req.params.id;
@@ -31,15 +32,12 @@ var imageCreate = function (req, res) {
   }
 };
 
-var _checkType = function (str) {
-  var types = [
-    'image/png',
-    'image/jpeg',
-    'image/gif'
-  ];
-  if (types.indexOf(str) !== -1) return true;
-  return false;
-};
+var deleteImage = function (id) {
+  return r.table('photos')
+    .get(id)
+    .delete()
+    .run(r.conn);
+}
 
 var imageUpdate = function (req, res) {
   var form = new multiparty.Form();
@@ -53,8 +51,34 @@ var imageUpdate = function (req, res) {
     if (fields.file && req.params.id) {
       var image = fields.file[0];
       var matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-      if (Array.isArray(matches) && _checkType(matches[1])) {
-        if (image) image = r.binary(new Buffer(matches[2], 'base64'));
+      if (Array.isArray(matches)) {
+        var buffer = new Buffer(matches[2], 'base64');
+
+        if (!checkType(matches[1])) {
+          deleteImage(req.params.id);
+          res.status(400).json({
+            'error': 'imageError',
+            'message': 'Only JPEG/PNG/GIF allowed'
+          });
+          return;
+        }
+        if (!image) {
+          deleteImage(req.params.id);
+          res.status(400).json({
+            'error': 'imageError',
+            'message': 'No image specified'
+          });
+          return;
+        }
+        if (buffer.length > 800000) {
+          deleteImage(req.params.id);
+          res.status(400).json({
+            'error': 'sizeError',
+            'message': 'Image must be uner 800kb'
+          });
+          return;
+        }
+        image = r.binary(buffer);
         r
           .table('photos')
           .get(req.params.id)

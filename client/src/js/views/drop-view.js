@@ -4,9 +4,11 @@ var _ = require('lodash');
 var axios = require('axios');
 
 var SinglePhotoView = require('./single-photo-view');
+var checkType = require('../../../../server/check-type');
 
 var DragDrop = React.createClass({
   handleFileSelect: function (evt) {
+    var socket = this.props.socket;
     evt.stopPropagation();
     evt.preventDefault();
     var x = evt.clientX, y = evt.clientY;
@@ -16,7 +18,7 @@ var DragDrop = React.createClass({
       reader.onload = function(e) {
         var base64 = e.target.result;
         var matches = base64.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-        if (Array.isArray(matches) && (matches[1] === 'image/png' || matches[1] === 'image/jpeg')) {
+        if (Array.isArray(matches) && checkType(matches[1])) {
           var image = {
             'fileName': file.name,
             'type': matches[1],
@@ -37,10 +39,25 @@ var DragDrop = React.createClass({
             return axios.put('image/' + id, data, opts);
           })
           .then(function () {
-            console.log('Image uploaded');
+            socket.emit('Message:mirror', {
+              type: 'success',
+              message: 'Image Uploaded',
+              time: Date.now()
+            });
+          })
+          .catch(function (err) {
+            socket.emit('Message:mirror', {
+              type: 'error',
+              message: err.data.message || 'Error uploadig Image',
+              time: Date.now()
+            });
           });
         } else {
-          console.log('Error', matches[1]);
+          socket.emit('Message:mirror', {
+            type: 'error',
+            message: 'Invalid image type',
+            time: Date.now()
+          });
         }
       }.bind(this);
       reader.readAsDataURL(file);

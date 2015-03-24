@@ -17,12 +17,13 @@ var socketHandler = function (io, socket) {
       io.emit('User:update', userId);
       socket.emit('User:connect', userId);
     }
-    r.table('photos')
-     .run(r.conn)
-     .then(function (cursor) {
+    r
+      .table('photos')
+      .run(r.conn)
+      .then(function (cursor) {
        return cursor.toArray();
-     })
-     .then(function (photos) {
+      })
+      .then(function (photos) {
        photos.forEach(function (photo) {
           var copy = _.clone(photo);
           delete copy.file;
@@ -33,8 +34,7 @@ var socketHandler = function (io, socket) {
           socket.emit('Photo:update', copy);
           socket.emit('Photo:update', image_copy);
        });
-     });
-
+      });
   });
 
   socket.on('User:disconnect', function () {
@@ -42,6 +42,10 @@ var socketHandler = function (io, socket) {
       if (user.socketId === socket.id) delete connectedUsers[key];
     });
    });
+   
+   socket.on('Message:mirror', function (message) {
+     socket.emit('Message:update', message);
+   })
 
   // socket.on('Photo:insert', function (photo) {
   //   if (!photo.file) {

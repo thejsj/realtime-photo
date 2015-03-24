@@ -15,7 +15,7 @@ var SinglePhotoView = React.createClass({
     this.props.socket.emit('Photo:delete', this.props.photo.id);
   },
   download: function (evt) {
-    window.location = '/photo/download/' + this.props.photo.id;
+    window.location = '/image/download/' + this.props.photo.id;
   },
   startDrag: function (evt) {
     var offset = this.getDOMNode().getBoundingClientRect();
