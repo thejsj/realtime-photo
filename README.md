@@ -7,18 +7,27 @@ A realtime photo sharing whiteboard made with [RethinkDB](http://rethinkdb.com)
 
 ### Setup
 
-Install all packages:
+This app requires Node.js and RethinkDB to run. In mac, you can install these with homebrew:
 
 ```
+brew install node
+brew install rethinkdb
+```
+
+`1.` Install all dependencies:
+
+```
+npm install -g bower
 npm install
 bower install
 ```
-Build front-end:
+
+`2.` Build front-end:
 ```
 npm run build
 ```
 
-If you want to run it using nodemon (for development):
+`3.` If you want to run it using nodemon (for development):
 ```
 npm run dev
 ```
