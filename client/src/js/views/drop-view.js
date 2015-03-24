@@ -4,7 +4,7 @@ var _ = require('lodash');
 var axios = require('axios');
 
 var SinglePhotoView = require('./single-photo-view');
-var checkType = require('../../../../server/check-type');
+var checkType = require('./check-type');
 
 var DragDrop = React.createClass({
   handleFileSelect: function (evt) {
