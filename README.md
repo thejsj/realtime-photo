@@ -3,7 +3,9 @@
 
 ![Screenshot of GIF](screenshot.gif)
 
-A realtime photo sharing whiteboard made with [RethinkDB](http://rethinkdb.com)
+A realtime photo sharing app made with [RethinkDB](http://rethinkdb.com). The app showcase RethinkDB's changefeeds combined with binary data.
+
+If you want to checkout a simpler version of this idea (in order to understand the code), check out this [realtime-photo-tutorial repo](https://github.com/thejsj/realtime-photo-tutorial).
 
 ### Setup
 
