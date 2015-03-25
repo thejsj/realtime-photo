@@ -5,7 +5,8 @@ var config = require('config');
 var clientConfigParser = function (req, res) {
   var _config = {
     'ports': config.get('ports'),
-    'url': config.get('url')
+    'url': config.get('url'),
+    'googleAnaylitcsUACode': config.get('googleAnaylitcsUACode')
   };
   var str = 'window.config = ' + JSON.stringify(_config) + ';';
   res
