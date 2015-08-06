@@ -2,6 +2,8 @@
 'use strict';
 
 var config = require('config');
+console.log(process.env);
+console.log(config);
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);

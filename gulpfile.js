@@ -8,7 +8,7 @@ var source = require('vinyl-source-stream');
 var reactify = require('reactify');
 var shell = require('gulp-shell');
 
-var sass = require('node-sass');
+//var sass = require('node-sass');
 var concat = require('gulp-concat');
 var fs = require('fs');
 var path = require('path');
@@ -48,24 +48,24 @@ gulp.task('browserify', function(){
 });
 
 
-gulp.task('sass', function () {
-  sass.render({
-    file: './client/src/scss/main.scss',
-  }, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    fs.writeFileSync(
-      path.join(__dirname, '/client/dist/main.css'),
-      result.css.toString()
-    );
-  });
-});
+//gulp.task('sass', function () {
+  //sass.render({
+    //file: './client/src/scss/main.scss',
+  //}, function (err, result) {
+    //if (err) {
+      //console.log(err);
+    //}
+    //fs.writeFileSync(
+      //path.join(__dirname, '/client/dist/main.css'),
+      //result.css.toString()
+    //);
+  //});
+//});
 
-gulp.task('watch', ['browserify', 'sass'], function () {
-  gulp.watch('./client/src/scss/**/*.scss', ['sass']);
+gulp.task('watch', ['browserify'], function () {
+  //gulp.watch('./client/src/scss/**/*.scss', ['sass']);
   gulp.watch('./client/src/js/**/*.js', ['watchify']);
 });
 
-gulp.task('default', ['browserify', 'sass']);
-gulp.task('build', ['browserify', 'sass']);
+gulp.task('default', ['browserify']);
+gulp.task('build', ['browserify']);

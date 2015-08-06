@@ -17,7 +17,7 @@ var _ = require('lodash');
   };
 
   var state = {
-    socket: io.connect('http://' + window.config.url + ':' + window.config.ports.http),
+    socket: io.connect(window.location.href),
     photos: {},
     messages: []
   };

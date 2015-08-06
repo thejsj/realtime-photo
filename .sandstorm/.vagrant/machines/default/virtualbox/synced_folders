@@ -1,0 +1,1 @@
+{"virtualbox":{"/opt/app":{"guestpath":"/opt/app","hostpath":"/Users/jorgesilvajetter/Sites/2015/realtime-photo","disabled":false},"/host-dot-sandstorm":{"guestpath":"/host-dot-sandstorm","hostpath":"/Users/jorgesilvajetter/.sandstorm","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/jorgesilvajetter/Sites/2015/realtime-photo","disabled":false}}}

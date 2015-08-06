@@ -18,5 +18,6 @@ var config = {
     'http': 8000,
   },
   'url': 'localhost',
+  'googleAnaylitcsUACode': false
 };
 module.exports = config;
